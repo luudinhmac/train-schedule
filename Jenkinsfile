@@ -18,7 +18,7 @@ pipeline {
             steps {
                 script {
                     DOCKER_IMAGE="gitops-demo"
-                    app = docker.build("tuannanhh/${DOCKER_IMAGE}")
+                    app = docker.build("luudinhmac/${DOCKER_IMAGE}")
                     // app.inside {
                     //     sh 'echo $(curl localhost:8080)'
                     // }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 script {
                     DOCKER_REGISTRY="registry.hub.docker.com"
-                    DOCKER_NAME="tuannanhh"
+                    DOCKER_NAME="luudinhmac"
 
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                         app.push("${env.BUILD_NUMBER}")
@@ -60,7 +60,7 @@ pipeline {
 //                  withCredentials([string(credentialsId: "argocd_role", variable: 'ARGOCD_AUTH_TOKEN')]) {
 //                      sh '''
 //                      ARGOCD_SERVER="argocd-deploy.com"
-//                      APP_NAME=tuananh-dep-k8s
+//                      APP_NAME=luudinhmac-dep-k8s
                      
 //                      ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app sync $APP_NAME --force
 //                      ARGOCD_SERVER=$ARGOCD_SERVER argocd --grpc-web app wait $APP_NAME --timeout 600
@@ -90,7 +90,7 @@ pipeline {
 //             steps {
 //                 withCredentials([usernamePassword(credentialsId: 'webserver-deploy', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 //                     script {
-//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$dev_ip \' docker pull tuannanhh/train-schedule:${env.BUILD_NUMBER}\'"
+//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$dev_ip \' docker pull luudinhmac/train-schedule:${env.BUILD_NUMBER}\'"
 //                         try {
 //                             sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$dev_ip \' docker stop train-schedule\'"
 //                             sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$dev_ip \' docker rm train-schedule\'"
@@ -107,7 +107,7 @@ pipeline {
 //             steps {
 //                 withCredentials([usernamePassword(credentialsId: 'webserver-deploy', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 //                     script {
-//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$staging_ip \' docker pull tuannanhh/train-schedule:${env.BUILD_NUMBER}\'"
+//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$staging_ip \' docker pull luudinhmac/train-schedule:${env.BUILD_NUMBER}\'"
 //                         try {
 //                             sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$staging_ip \' docker stop train-schedule\'"
 //                             sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$staging_ip \' docker rm train-schedule\'"
@@ -126,14 +126,14 @@ pipeline {
 //                 milestone(1)
 //                 withCredentials([usernamePassword(credentialsId: 'webserver-deploy', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
 //                     script {
-//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$prod_ip \' docker pull tuannanhh/train-schedule:${env.BUILD_NUMBER}\'"
+//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$prod_ip \' docker pull luudinhmac/train-schedule:${env.BUILD_NUMBER}\'"
 //                         try {
 //                             sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$prod_ip \' docker stop train-schedule\'"
 //                             sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$prod_ip \' docker rm train-schedule\'"
 //                         } catch (err) {
 //                             echo 'caucht error: $err'
 //                         }
-//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$prod_ip\' docker run --restart always --name train-schedule -p 8080:8080 -d tuannanhh/train-schedule:${env.BUILD_NUMBER}\'"
+//                         sh "sshpass -p '$USERPASS' ssh -o 'StrictHostKeyChecking=no' $USERNAME@$prod_ip\' docker run --restart always --name train-schedule -p 8080:8080 -d luudinhmac/train-schedule:${env.BUILD_NUMBER}\'"
 //                     }
 //                 }
 //             }
